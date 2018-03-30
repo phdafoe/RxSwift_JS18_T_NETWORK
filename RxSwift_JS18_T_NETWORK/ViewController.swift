@@ -7,17 +7,48 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 class ViewController: UIViewController {
+    
+    //MARK: - Local Variables
+    let mySearchController = UISearchController(searchResultsController: nil)
+    var mySearchBar : UISearchBar{ return
+        mySearchController.searchBar
+    }
+    
+    var viewModel = ViewModel()
+    let disposeBag = DisposeBag()
+    
+    
+    //MARK: - IBOutlets
+    @IBOutlet weak var myTableView: UITableView!
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
+        configuredSearchController()
+        
+        viewModel.data.drive(myTableView.rx.items(cellIdentifier: "Cell")) { _, repository, cell in
+            cell.textLabel?.text = repository.name
+            cell.detailTextLabel?.text = repository.url
+            }.disposed(by: disposeBag)
+        
+        mySearchBar.rx.text.orEmpty.bind(to: viewModel.searchText).disposed(by: disposeBag)
+        
+        viewModel.data.asDriver().map{"\($0.count) Repositories"}.drive(navigationItem.rx.title).disposed(by: disposeBag)
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+   
+    func configuredSearchController(){
+        mySearchController.obscuresBackgroundDuringPresentation = false
+        mySearchBar.showsCancelButton = true
+        mySearchBar.text = "phdafoe"
+        mySearchBar.placeholder = "Enter GitHub ID, e.g., \"phdafoe\""
+        myTableView.tableHeaderView = mySearchController.searchBar
+        definesPresentationContext = true
     }
 
 

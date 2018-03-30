@@ -1,0 +1,6 @@
+framework module Pods_RxSwift_JS18_T_NETWORK {
+  umbrella header "Pods-RxSwift_JS18_T_NETWORK-umbrella.h"
+
+  export *
+  module * { export * }
+}
