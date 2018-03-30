@@ -31,9 +31,9 @@ class ViewController: UIViewController {
         
         configuredSearchController()
         
-        viewModel.data.drive(myTableView.rx.items(cellIdentifier: "Cell")) { _, repository, cell in
-            cell.textLabel?.text = repository.name
-            cell.detailTextLabel?.text = repository.url
+        viewModel.data.drive(myTableView.rx.items(cellIdentifier: "Cell")) { _, Model, cell in
+            cell.textLabel?.text = Model.name
+            cell.detailTextLabel?.text = Model.url
             }.disposed(by: disposeBag)
         
         mySearchBar.rx.text.orEmpty.bind(to: viewModel.searchText).disposed(by: disposeBag)

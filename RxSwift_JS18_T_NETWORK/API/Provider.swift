@@ -14,7 +14,7 @@ final class ProviderService{
     
     static let shared = ProviderService()
     
-    internal func repositoriesFor(_ gitHubID : String) -> Observable<[Repository]>{
+    internal func repositoriesFor(_ gitHubID : String) -> Observable<[Model]>{
         guard !gitHubID.isEmpty, let url = URL(string: "https://api.github.com/users/\(gitHubID)/repos") else{
             return Observable.just([])
         }

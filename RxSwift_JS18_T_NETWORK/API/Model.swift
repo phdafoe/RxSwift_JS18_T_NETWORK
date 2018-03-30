@@ -1,5 +1,5 @@
 //
-//  Repository.swift
+//  Model.swift
 //  RxSwift_JS18_T_NETWORK
 //
 //  Created by Andres Felipe Ocampo Eljaiesk on 30/3/18.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Repository {
+struct Model {
     let name : String
     let url : String
 }

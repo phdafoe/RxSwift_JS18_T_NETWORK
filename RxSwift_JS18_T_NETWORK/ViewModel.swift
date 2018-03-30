@@ -14,7 +14,7 @@ final class ViewModel{
     
     let searchText = Variable("")
     
-    lazy var data : Driver<[Repository]> = {
+    lazy var data : Driver<[Model]> = {
         return self.searchText.asObservable()
         .throttle(0.3, scheduler: MainScheduler.instance)
         .distinctUntilChanged()
